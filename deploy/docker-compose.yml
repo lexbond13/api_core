@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+#  eventcheck:
+#    build:
+#      context: ../.
+#    restart: always
+#    environment:
+#      DB_HOST: "postgres"
+#      REDIS_ADDRESS: "redis:6379"
+#      AUTH_SECRET: "32d1a9c62eff18602f5238e5528001034972452b8bcd"
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - "postgres"
+
+  postgres:
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    volumes:
+      - /opt/postgres/eventcheck/pgdata:/var/lib/postgresql/eventcheck/data
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "eventcheck"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /opt/redis/eventcheck/redis:/data
+    restart: always
+
+volumes:
+  db-data:
+    driver: local
